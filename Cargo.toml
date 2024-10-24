@@ -1,0 +1,13 @@
+[package]
+name = "this"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+# https://github.com/MystenLabs/sui/releases/tag/mainnet-v1.35.2
+sui-sdk = { git = "https://github.com/mystenlabs/sui", package = "sui-sdk", rev = "4e46da8" }
+graphql_client = "0.14.0"
+reqwest = { version = "0.12.8", features = ["json"] }
+serde = { version = "1.0.213", features = ["derive"] }
+serde_json = "1.0.132"
+tokio = { version = "1.41.0", features = ["full"] }
