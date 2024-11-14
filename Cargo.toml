@@ -4,8 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-# https://github.com/MystenLabs/sui/releases/tag/mainnet-v1.35.2
-sui-sdk = { git = "https://github.com/mystenlabs/sui", package = "sui-sdk", rev = "4e46da8" }
+sui-sdk-types = { git = "https://github.com/MystenLabs/sui-rust-sdk", package = "sui-sdk-types", features = ["serde"], rev = "98ecfa1" }
 graphql_client = "0.14.0"
 reqwest = { version = "0.12.8", features = ["json"] }
 serde = { version = "1.0.213", features = ["derive"] }

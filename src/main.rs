@@ -1,6 +1,6 @@
 use graphql_client::GraphQLQuery;
 use std::str::FromStr;
-use sui_sdk::types::base_types::SuiAddress;
+use sui_sdk_types::types::Address;
 use this::graphql;
 
 #[tokio::main]
@@ -10,7 +10,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let client = reqwest::Client::new();
 
     let vs = graphql::test_query::Variables {
-        package_address: SuiAddress::from_str(pkg)?,
+        package_address: Address::from_str(pkg)?,
     };
     let request_body = graphql::TestQuery::build_query(vs);
 

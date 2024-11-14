@@ -866,20 +866,8 @@
         "interfaces": null,
         "enumValues": [
           {
-            "name": "SIGN",
-            "description": "Transactions this address has sent. NOTE: this input filter has been deprecated in favor of\n`SENT` which behaves identically but is named more clearly. Both filters restrict\ntransactions by their sender, only, not signers in general.\n\nThis filter will be removed with 1.36.0 (2024-10-14).",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
             "name": "SENT",
             "description": "Transactions this address has sent.",
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "RECV",
-            "description": "Transactions that sent objects to this address. NOTE: this input filter has been deprecated\nin favor of `AFFECTED`, which offers an easier to understand behavior.\n\nThis filter will be removed with 1.36.0 (2024-10-14), or at least one release after\n`AFFECTED` is introduced, whichever is later.",
             "isDeprecated": false,
             "deprecationReason": null
           },
@@ -5042,9 +5030,139 @@
       },
       {
         "kind": "OBJECT",
+        "name": "EpochConnection",
+        "description": null,
+        "fields": [
+          {
+            "name": "pageInfo",
+            "description": "Information to aid in pagination.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "PageInfo",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "edges",
+            "description": "A list of edges.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "EpochEdge",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "nodes",
+            "description": "A list of nodes.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "OBJECT",
+                    "name": "Epoch",
+                    "ofType": null
+                  }
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "EpochEdge",
+        "description": "An edge in a connection.",
+        "fields": [
+          {
+            "name": "node",
+            "description": "The item at the end of the edge",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "Epoch",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "cursor",
+            "description": "A cursor for use in pagination",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "String",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "Event",
         "description": null,
         "fields": [
+          {
+            "name": "transactionBlock",
+            "description": "The transaction block that emitted this event. This information is only available for\nevents from indexed transactions, and not from transactions that have just been executed or\ndry-run.",
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "TransactionBlock",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
           {
             "name": "sendingModule",
             "description": "The Move module containing some function that when called by\na programmable transaction block (PTB) emitted this event.\nFor example, if a PTB invokes A::m1::foo, which internally\ncalls A::m2::emit_event to emit an event,\nthe sending module would be A::m1.",
@@ -5082,15 +5200,15 @@
             "deprecationReason": null
           },
           {
-            "name": "type",
-            "description": "The value's Move type.",
+            "name": "contents",
+            "description": "The event's contents as a Move value.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
               "name": null,
               "ofType": {
                 "kind": "OBJECT",
-                "name": "MoveType",
+                "name": "MoveValue",
                 "ofType": null
               }
             },
@@ -5099,7 +5217,7 @@
           },
           {
             "name": "bcs",
-            "description": "The BCS representation of this value, Base64 encoded.",
+            "description": "The Base64 encoded BCS serialized bytes of the event.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -5107,38 +5225,6 @@
               "ofType": {
                 "kind": "SCALAR",
                 "name": "Base64",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "data",
-            "description": "Structured contents of a Move value.",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "MoveData",
-                "ofType": null
-              }
-            },
-            "isDeprecated": false,
-            "deprecationReason": null
-          },
-          {
-            "name": "json",
-            "description": "Representation of a Move value in JSON, where:\n\n- Addresses, IDs, and UIDs are represented in canonical form, as JSON strings.\n- Bools are represented by JSON boolean literals.\n- u8, u16, and u32 are represented as JSON numbers.\n- u64, u128, and u256 are represented as JSON strings.\n- Vectors are represented by JSON arrays.\n- Structs are represented by JSON objects.\n- Empty optional values are represented by `null`.\n\nThis form is offered as a less verbose convenience in cases where the layout of the type is\nknown by the client.",
-            "args": [],
-            "type": {
-              "kind": "NON_NULL",
-              "name": null,
-              "ofType": {
-                "kind": "SCALAR",
-                "name": "JSON",
                 "ofType": null
               }
             },
@@ -10140,6 +10226,18 @@
             "deprecationReason": null
           },
           {
+            "name": "packageBcs",
+            "description": "BCS representation of the package itself, as a MovePackage.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Base64",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "moduleBcs",
             "description": "BCS representation of the package's modules.  Modules appear as a sequence of pairs (module\nname, followed by module bytes), in alphabetic order by module name.",
             "args": [],
@@ -12038,12 +12136,6 @@
             "description": "The object is fetched from the index.",
             "isDeprecated": false,
             "deprecationReason": null
-          },
-          {
-            "name": "WRAPPED_OR_DELETED",
-            "description": "The object is deleted or wrapped and only partial information can be loaded from the\nindexer.",
-            "isDeprecated": false,
-            "deprecationReason": null
           }
         ],
         "possibleTypes": null
@@ -12845,7 +12937,7 @@
       {
         "kind": "OBJECT",
         "name": "Parent",
-        "description": "If the object's owner is a Parent, this object is part of a dynamic field (it is the value of\nthe dynamic field, or the intermediate Field object itself). Also note that if the owner\nis a parent, then it's guaranteed to be an object.",
+        "description": "If the object's owner is a Parent, this object is part of a dynamic field (it is the value of\nthe dynamic field, or the intermediate Field object itself), and it is owned by another object.\n\nAlthough its owner is guaranteed to be an object, it is exposed as an Owner, as the parent\nobject could be wrapped and therefore not directly accessible.",
         "fields": [
           {
             "name": "parent",
@@ -12853,7 +12945,7 @@
             "args": [],
             "type": {
               "kind": "OBJECT",
-              "name": "Object",
+              "name": "Owner",
               "ofType": null
             },
             "isDeprecated": false,
@@ -13885,6 +13977,63 @@
               "ofType": {
                 "kind": "OBJECT",
                 "name": "CoinConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "epochs",
+            "description": null,
+            "args": [
+              {
+                "name": "first",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "EpochConnection",
                 "ofType": null
               }
             },
@@ -17555,7 +17704,7 @@
           },
           {
             "name": "bcs",
-            "description": "Serialized form of this transaction's `SenderSignedData`, BCS serialized and Base64 encoded.",
+            "description": "Serialized form of this transaction's `TransactionData`, BCS serialized and Base64 encoded.",
             "args": [],
             "type": {
               "kind": "SCALAR",
@@ -18168,28 +18317,8 @@
             "defaultValue": null
           },
           {
-            "name": "signAddress",
-            "description": "Limit to transactions that were sent by the given address. NOTE: this input filter has been\ndeprecated in favor of `sentAddress` which behaves identically but is named more clearly.\nBoth filters restrict transactions by their sender, only, not signers in general.\n\nThis filter will be removed with 1.36.0 (2024-10-14).",
-            "type": {
-              "kind": "SCALAR",
-              "name": "SuiAddress",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
             "name": "sentAddress",
             "description": "Limit to transactions that were sent by the given address.",
-            "type": {
-              "kind": "SCALAR",
-              "name": "SuiAddress",
-              "ofType": null
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "recvAddress",
-            "description": "Limit to transactions that sent an object to the given address. NOTE: this input filter has\nbeen deprecated in favor of `affectedAddress` which offers an easier to understand\nbehavior.\n\nThis filter will be removed with 1.36.0 (2024-10-14), or at least one release after\n`affectedAddress` is introduced, whichever is later.",
             "type": {
               "kind": "SCALAR",
               "name": "SuiAddress",
