@@ -9,4 +9,4 @@ type SuiAddress = Address;
     query_path = "graphql/query.graphql",
     response_derives = "Debug"
 )]
-pub struct TestQuery;
+pub struct TestCall;

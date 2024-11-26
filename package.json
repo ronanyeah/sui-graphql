@@ -1,12 +1,12 @@
 {
   "scripts": {
     "fetch-schema": "gq https://sui-mainnet.mystenlabs.com/graphql --introspect --format json > ./graphql/schema.json",
-    "lint": "eslint --config .eslintrc.js ./graphql"
+    "lint": "eslint --config eslint.config.mjs"
   },
   "dependencies": {
-    "@graphql-eslint/eslint-plugin": "^3.20.1",
-    "eslint": "^8.57.1",
-    "graphql": "^15.9.0",
+    "@graphql-eslint/eslint-plugin": "^4.0.0",
+    "eslint": "^9.15.0",
+    "graphql": "^16.9.0",
     "graphqurl": "^1.0.3"
   }
 }

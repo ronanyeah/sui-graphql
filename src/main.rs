@@ -9,12 +9,12 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
 
     let client = reqwest::Client::new();
 
-    let vs = graphql::test_query::Variables {
+    let vs = graphql::test_call::Variables {
         package_address: Address::from_str(pkg)?,
     };
-    let request_body = graphql::TestQuery::build_query(vs);
+    let request_body = graphql::TestCall::build_query(vs);
 
-    let res: graphql_client::Response<graphql::test_query::ResponseData> = client
+    let res: graphql_client::Response<graphql::test_call::ResponseData> = client
         .post("https://sui-mainnet.mystenlabs.com/graphql")
         .json(&request_body)
         .send()

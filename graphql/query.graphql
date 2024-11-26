@@ -1,6 +1,6 @@
-query TestQuery($package_address: SuiAddress!) {
+query TestCall($packageAddress: SuiAddress!) {
   chainIdentifier,
-  latestPackage(address: $package_address) {
+  latestPackage(address: $packageAddress) {
     digest
   }
 }
