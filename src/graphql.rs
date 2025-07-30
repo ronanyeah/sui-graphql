@@ -1,5 +1,5 @@
 use graphql_client::GraphQLQuery;
-use sui_sdk_types::types::Address;
+use sui_sdk_types::Address;
 
 type SuiAddress = Address;
 

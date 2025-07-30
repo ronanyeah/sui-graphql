@@ -1,6 +1,6 @@
 use graphql_client::GraphQLQuery;
 use std::str::FromStr;
-use sui_sdk_types::types::Address;
+use sui_sdk_types::Address;
 use this::graphql;
 
 #[tokio::main]

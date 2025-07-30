@@ -7,6 +7,6 @@
     "@graphql-eslint/eslint-plugin": "^4.0.0",
     "eslint": "^9.15.0",
     "graphql": "^16.9.0",
-    "graphqurl": "^1.0.3"
+    "graphqurl": "^2.0.0"
   }
 }

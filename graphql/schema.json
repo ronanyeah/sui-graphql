@@ -10,6 +10,29 @@
     "types": [
       {
         "kind": "OBJECT",
+        "name": "AccumulatorRootCreateTransaction",
+        "description": null,
+        "fields": [
+          {
+            "name": "_",
+            "description": "A workaround to define an empty variant of a GraphQL union.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "ActiveJwk",
         "description": null,
         "fields": [
@@ -1876,6 +1899,18 @@
             },
             "isDeprecated": false,
             "deprecationReason": null
+          },
+          {
+            "name": "bcs",
+            "description": "The Base64 serialized BCS bytes of CheckpointSummary for this checkpoint.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Base64",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
           }
         ],
         "inputFields": null,
@@ -3703,6 +3738,45 @@
       },
       {
         "kind": "OBJECT",
+        "name": "ConsensusAddressOwner",
+        "description": "Same as AddressOwner, but the object is versioned by consensus.",
+        "fields": [
+          {
+            "name": "startVersion",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "UInt53",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "owner",
+            "description": null,
+            "args": [],
+            "type": {
+              "kind": "OBJECT",
+              "name": "Owner",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
         "name": "ConsensusCommitPrologueTransaction",
         "description": "System transaction that runs at the beginning of a checkpoint, and is responsible for setting\nthe current value of the clock, based on the timestamp from consensus.",
         "fields": [
@@ -4497,6 +4571,16 @@
           {
             "kind": "OBJECT",
             "name": "BridgeCommitteeInitTransaction",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "StoreExecutionTimeObservationsTransaction",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "AccumulatorRootCreateTransaction",
             "ofType": null
           }
         ]
@@ -12014,7 +12098,7 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "ObjectFilter",
-        "description": "Constrains the set of objects returned. All filters are optional, and the resulting set of\nobjects are ones whose\n\n- Type matches the `type` filter,\n- AND, whose owner matches the `owner` filter,\n- AND, whose ID is in `objectIds` OR whose ID and version is in `objectKeys`.",
+        "description": "Constrains the set of objects returned. All filters are optional, and the resulting set of\nobjects are ones whose\n\n- Type matches the `type` filter,\n- AND, whose owner matches the `owner` filter,\n- AND, whose ID is in `objectIds`.",
         "fields": null,
         "inputFields": [
           {
@@ -12049,24 +12133,6 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "SuiAddress",
-                  "ofType": null
-                }
-              }
-            },
-            "defaultValue": null
-          },
-          {
-            "name": "objectKeys",
-            "description": "Filter for live or potentially historical objects by their ID and version.",
-            "type": {
-              "kind": "LIST",
-              "name": null,
-              "ofType": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "INPUT_OBJECT",
-                  "name": "ObjectKey",
                   "ofType": null
                 }
               }
@@ -12143,7 +12209,7 @@
       {
         "kind": "UNION",
         "name": "ObjectOwner",
-        "description": "The object's owner type: Immutable, Shared, Parent, or Address.",
+        "description": "The object's owner type: Immutable, Shared, Parent, Address, or ConsensusAddress.",
         "fields": null,
         "inputFields": null,
         "interfaces": null,
@@ -12167,6 +12233,11 @@
           {
             "kind": "OBJECT",
             "name": "AddressOwner",
+            "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ConsensusAddressOwner",
             "ofType": null
           }
         ]
@@ -12947,6 +13018,131 @@
               "kind": "OBJECT",
               "name": "Owner",
               "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
+        "kind": "OBJECT",
+        "name": "ProgrammableSystemTransactionBlock",
+        "description": "ProgrammableSystemTransactionBlock is identical to ProgrammableTransactionBlock, but graphql\ndoes not allow multiple variants with the same type.",
+        "fields": [
+          {
+            "name": "inputs",
+            "description": "Input objects or primitive values.",
+            "args": [
+              {
+                "name": "first",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "TransactionInputConnection",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "transactions",
+            "description": "The transaction commands, executed sequentially.",
+            "args": [
+              {
+                "name": "first",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "after",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "last",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "Int",
+                  "ofType": null
+                },
+                "defaultValue": null
+              },
+              {
+                "name": "before",
+                "description": null,
+                "type": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "OBJECT",
+                "name": "ProgrammableTransactionConnection",
+                "ofType": null
+              }
             },
             "isDeprecated": false,
             "deprecationReason": null
@@ -13917,6 +14113,49 @@
             "deprecationReason": null
           },
           {
+            "name": "multiGetObjects",
+            "description": "Fetch a list of objects by their IDs and versions.",
+            "args": [
+              {
+                "name": "keys",
+                "description": null,
+                "type": {
+                  "kind": "NON_NULL",
+                  "name": null,
+                  "ofType": {
+                    "kind": "LIST",
+                    "name": null,
+                    "ofType": {
+                      "kind": "NON_NULL",
+                      "name": null,
+                      "ofType": {
+                        "kind": "INPUT_OBJECT",
+                        "name": "ObjectKey",
+                        "ofType": null
+                      }
+                    }
+                  }
+                },
+                "defaultValue": null
+              }
+            ],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "Object",
+                  "ofType": null
+                }
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "coins",
             "description": "The coin objects that exist in the network.\n\nThe type field is a string of the inner type of the coin by which to filter (e.g.\n`0x2::sui::SUI`). If no type is provided, it will default to `0x2::sui::SUI`.",
             "args": [
@@ -14570,7 +14809,7 @@
           },
           {
             "name": "coinMetadata",
-            "description": "The coin metadata associated with the given coin type.",
+            "description": "The coin metadata associated with the given coin type. Note that if the latest version of\nthe coin's metadata is wrapped or deleted, it will not be found.",
             "args": [
               {
                 "name": "coinType",
@@ -15200,6 +15439,22 @@
           {
             "name": "maxTransactionIds",
             "description": "Maximum number of transaction ids that can be passed to a `TransactionBlockFilter`.",
+            "args": [],
+            "type": {
+              "kind": "NON_NULL",
+              "name": null,
+              "ofType": {
+                "kind": "SCALAR",
+                "name": "Int",
+                "ofType": null
+              }
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
+            "name": "maxMultiGetObjectsKeys",
+            "description": "Maximum number of keys that can be passed to a `multiGetObjects` query.",
             "args": [],
             "type": {
               "kind": "NON_NULL",
@@ -16597,6 +16852,29 @@
         "possibleTypes": null
       },
       {
+        "kind": "OBJECT",
+        "name": "StoreExecutionTimeObservationsTransaction",
+        "description": null,
+        "fields": [
+          {
+            "name": "_",
+            "description": "A workaround to define an empty variant of a GraphQL union.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "Boolean",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          }
+        ],
+        "inputFields": null,
+        "interfaces": [],
+        "enumValues": null,
+        "possibleTypes": null
+      },
+      {
         "kind": "SCALAR",
         "name": "String",
         "description": "The `String` scalar type represents textual data, represented as UTF-8\ncharacter sequences. The String type is most often used by GraphQL to\nrepresent free-form human-readable text.",
@@ -17896,6 +18174,18 @@
             "deprecationReason": null
           },
           {
+            "name": "abortCode",
+            "description": "The error code of the Move abort, populated if this transaction failed with a Move abort.",
+            "args": [],
+            "type": {
+              "kind": "SCALAR",
+              "name": "BigInt",
+              "ofType": null
+            },
+            "isDeprecated": false,
+            "deprecationReason": null
+          },
+          {
             "name": "dependencies",
             "description": "Transactions whose outputs this transaction depends upon.",
             "args": [
@@ -18412,6 +18702,11 @@
             "kind": "OBJECT",
             "name": "EndOfEpochTransaction",
             "ofType": null
+          },
+          {
+            "kind": "OBJECT",
+            "name": "ProgrammableSystemTransactionBlock",
+            "ofType": null
           }
         ]
       },
@@ -18590,7 +18885,7 @@
       {
         "kind": "INPUT_OBJECT",
         "name": "TransactionMetadata",
-        "description": "The optional extra data a user can provide to a transaction dry run.\n`sender` defaults to `0x0`. If gasObjects` is not present, or is an empty list,\nit is substituted with a mock Coin object, `gasPrice` defaults to the reference\ngas price, `gasBudget` defaults to the max gas budget and `gasSponsor` defaults\nto the sender.",
+        "description": "The optional extra data a user can provide to a transaction dry run.\n`sender` defaults to `0x0`. If `gasObjects` is not present, or is an empty list,\nit is substituted with a mock Coin object, `gasPrice` defaults to the reference\ngas price, `gasBudget` defaults to the max gas budget and `gasSponsor` defaults\nto the sender.",
         "fields": null,
         "inputFields": [
           {
