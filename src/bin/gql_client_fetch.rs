@@ -15,7 +15,7 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
     let request_body = graphql::TestCall::build_query(vs);
 
     let res: graphql_client::Response<graphql::test_call::ResponseData> = client
-        .post("https://sui-mainnet.mystenlabs.com/graphql")
+        .post("https://graphql.mainnet.sui.io/graphql")
         .json(&request_body)
         .send()
         .await?
@@ -27,8 +27,8 @@ async fn main() -> Result<(), Box<dyn std::error::Error>> {
         return Ok(());
     };
 
-    println!("{}", body.chain_identifier);
-    println!("{:?}", body.latest_package);
+    println!("chain: {}", body.chain_identifier);
+    println!("{:#?}", body.package.unwrap());
 
     Ok(())
 }
